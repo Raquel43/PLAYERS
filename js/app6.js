@@ -86,15 +86,14 @@ let contenedor2 = document.getElementById("professional_list");
 const buttonAdd = document.getElementById("btn-enviar");
 
 buttonAdd.addEventListener("click", function (e) {
-  rellenaTablaJugadores();
   AddPlayer();
+  rellenaTablaJugadores();
   limpiarFormulario();
 });
 init();
 
 function init() {
   rellenaTablaJugadores();
-  AddPlayer();
   limpiarFormulario();
 }
 
