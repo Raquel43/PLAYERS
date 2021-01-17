@@ -1,0 +1,13 @@
+h2{
+    background: linear-gradient(to bottom, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
+}
+form {
+  background-color: rgb(173, 171, 171);
+  border-radius: 5px;
+  filter: drop-shadow(8px 8px 10px black);
+}
+
+.button-form:hover {
+  background-color: blue;
+  color: white;
+}
