@@ -86,16 +86,16 @@ let contenedor2 = document.getElementById("professional_list");
 const buttonAdd = document.getElementById("btn-enviar");
 
 buttonAdd.addEventListener("click", function (e) {
+  rellenaTablaJugadores();
   AddPlayer();
   limpiarFormulario();
-  rellenaTablaJugadores();
 });
 init();
 
 function init() {
+  rellenaTablaJugadores();
   AddPlayer();
   limpiarFormulario();
-  rellenaTablaJugadores();
 }
 
 function evitarDuplicados(dni) {
@@ -105,6 +105,30 @@ function evitarDuplicados(dni) {
     }
   }
   return true;
+}
+function checkFormulario() {
+  let dni = document.getElementById("dni").value;
+  let nombre = document.getElementById("name").value;
+  let apellidos = document.getElementById("surname").value;
+  let fecha_nac = document.getElementById("date").value;
+  let telefono = document.getElementById("tel").value;
+  let email = document.getElementById("mail").value;
+  let categoria = document.getElementById("categoria").value;
+
+  //comprobar si algun campo esta vacio
+  if (
+    dni == "" ||
+    nombre == "" ||
+    apellidos == "" ||
+    fecha_nac == "" ||
+    telefono == "" ||
+    email == "" ||
+    categoria == ""
+  ) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function AddPlayer() {
@@ -116,7 +140,7 @@ function AddPlayer() {
   let email = document.getElementById("mail").value;
   let cuenta = document.getElementById("cuenta").value;
   let categoria = document.getElementById("categoria").value;
-  if (evitarDuplicados(dni)) {
+  if (evitarDuplicados(dni) && checkFormulario()) {
     var anos = calcularEdad(fecha_nac);
     let cliente = {
       dni,
@@ -135,7 +159,7 @@ function AddPlayer() {
     }
     console.log(players);
   } else {
-    alert("El usuario está duplicado");
+    alert("Faltan datos obligatorios");
   }
 }
 
@@ -161,7 +185,7 @@ function rellenaTablaJugadores() {
   contenedor.innerHTML = "";
   contenedor.innerHTML = `<h3>Jugadores Principiantes</h3>`;
   for (let cliente of players) {
-    if ((cliente.categoria == "BEG")) {
+    if (cliente.categoria == "BEG") {
       contenedor.innerHTML += ` 
     <img style="float:left" src="./img/icono2.png" alt="icono">
       <p>${cliente.nombre + " " + cliente.apellidos}</p>
@@ -172,7 +196,7 @@ function rellenaTablaJugadores() {
   contenedor2.innerHTML = "";
   contenedor2.innerHTML = `<h3>Jugadores Profesionales</h3>`;
   for (let cliente of players) {
-    if ((cliente.categoria == "PRO")) {
+    if (cliente.categoria == "PRO") {
       contenedor2.innerHTML += ` 
   <img style="float:left" src="./img/icono2.png" alt="icono">
     <p>${cliente.nombre + " " + cliente.apellidos}</p>
