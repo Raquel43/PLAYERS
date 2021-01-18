@@ -100,6 +100,7 @@ function init() {
 function evitarDuplicados(dni) {
   for (let cliente of players) {
     if (cliente.dni == dni) {
+      alert("El dni está duplicado");
       return false;
     }
   }
@@ -112,6 +113,7 @@ function checkFormulario() {
   let fecha_nac = document.getElementById("date").value;
   let telefono = document.getElementById("tel").value;
   let email = document.getElementById("mail").value;
+  let cuenta = document.getElementById("cuenta").value;
   let categoria = document.getElementById("categoria").value;
 
   //comprobar si algun campo esta vacio
@@ -122,8 +124,21 @@ function checkFormulario() {
     fecha_nac == "" ||
     telefono == "" ||
     email == "" ||
+    cuenta == "" ||
     categoria == ""
   ) {
+    alert("Faltan datos obligatorios");
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function validarEmail(elemento) {
+  var regex = /^[A-Z0-9._%+-]+@(?:[A-Z0-9-]+.)+[A-Z]{2,4}$/i;
+
+  if (!regex.test(elemento)) {
+    alert("Correo incorrecto");
     return false;
   } else {
     return true;
@@ -139,7 +154,7 @@ function AddPlayer() {
   let email = document.getElementById("mail").value;
   let cuenta = document.getElementById("cuenta").value;
   let categoria = document.getElementById("categoria").value;
-  if (evitarDuplicados(dni) && checkFormulario()) {
+  if (evitarDuplicados(dni) && checkFormulario() && validarEmail(email)) {
     var anos = calcularEdad(fecha_nac);
     let cliente = {
       dni,
@@ -158,7 +173,7 @@ function AddPlayer() {
     }
     console.log(players);
   } else {
-    alert("Faltan datos obligatorios");
+    return false;
   }
 }
 
